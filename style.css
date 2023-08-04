@@ -1,0 +1,321 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+    letter-spacing: 1px;
+}
+
+.head {
+    display: flex;
+    padding: 1rem;
+    justify-content: space-between;
+    /* width: 100%; */
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+}
+
+.head ::first-letter{
+    font-size: 1.5rem; 
+    color: var(--blue2);
+ }
+
+nav {
+    background-color: white;
+    z-index: 123;
+    position:fixed;
+    top: 0;
+    /* height: 10rem; */
+    /* flex-direction: row; */
+    justify-content: space-between;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    padding: 0 15px;
+
+}
+
+@media screen and (min-width: 800px) {
+    .bar {
+        display: none;
+    }
+
+    nav {
+        display: flex;
+        /* flex-direction: row; */
+        align-items: center;
+    }
+
+    .links {
+        /* width: 50% !important; */
+        height: auto !important;
+        display: flex;
+        flex-direction: row;
+        padding: 10px;
+    }
+
+    .links li {
+        padding-left: 20px;
+    }
+
+    nav a i {
+        padding-right: 1px;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+nav li a {
+    padding: 10px 5px;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+nav li:hover a {
+    color: var(--blue2);
+    outline: 1px solid black;
+}
+
+.links {
+    line-height: 40px;
+    height: 0;
+    letter-spacing: 3px;
+    overflow: hidden;
+
+}
+
+.show-links {
+    border-top: 1px solid black;
+    height: 8rem;
+    background-color: white;
+}
+
+nav a i {
+    padding-right: 10px;
+}
+
+#list {
+   
+    display: flex;
+    flex-direction: row;
+    margin: 50px 10px 10px 10px;
+    grid-gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+.heading {
+
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.zz {
+    
+    background-color: var(--blue2);
+    height: 3px;
+    width: 5rem;
+}
+
+.tprice{
+    margin-top: 20px;
+}
+#yy {
+    position: absolute;
+    top: 50%;
+    left: 35%;
+}
+
+#list h1 {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+}
+
+:root {
+    --blue: rgb(140, 140, 201);
+    --blue2: rgb(105, 105, 228);
+}
+
+.top {
+    display: flex;
+    border: 1px solid rgb(156, 151, 151);
+    flex-direction: column;
+    justify-content: center;
+    max-width: 400px;
+    /* height: 250px; */
+    padding: 5px;
+    border-radius: 10px;
+}
+
+
+.box {
+    display: flex;
+    /* overflow-y: scroll; */
+    /* justify-content: center; */
+    max-width: 450px;
+    grid-gap: 15px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.box .info {
+    margin: auto;
+    line-height: 25px;
+}
+
+.box img {
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+    border: 2px solid var(--blue);
+    border-radius: 10px;
+}
+
+.box .info h4 {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+
+}
+
+.box .info h4 p {
+    color: var(--blue2);
+}
+
+.box .info span {
+    margin-bottom: 15px;
+    /* color: var(--blue2); */
+    font-weight: 700;
+}
+
+
+.box .info .disc {
+    margin-bottom: 5px;
+}
+
+button {
+    background-color: var(--blue);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100px;
+}
+
+button:hover {
+    background-color: var(--blue2);
+}
+
+.remove,
+.remove2 {
+    background-color: rgb(233, 75, 75);
+}
+
+.remove:hover,
+.remove2:hover {
+    background-color: red;
+}
+
+.buttons {
+    margin-left: 10px;
+}
+
+:root {
+    --blue: rgb(140, 140, 201);
+    --blue2: rgb(105, 105, 228);
+}
+
+
+input {
+    width: 100%;
+    padding: 12px;
+    /* border: none; */
+    border: 2px solid #aaa7a7;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 10px;
+    outline: none;
+    /* resize: vertical  */
+}
+
+form input:nth-child(6) {
+    padding: 1px !important;
+    border: none;
+}
+
+input:focus {
+    /* color: rgb(105, 105, 228); */
+    border: 2px solid var(--blue2);
+}
+
+input[type=submit] {
+    background-color: var(--blue);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 80px;
+}
+
+input[type=submit]:hover {
+    background-color: var(--blue2);
+}
+
+.add {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+form {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    color: rgb(18, 18, 19);
+    font-weight: 600;
+}
+
+.quantity button {
+    background-color: var(--blue);
+    border-radius: 5px;
+    padding: 3px;
+    height: 28px;
+    text-align: center;
+    width: 30px;
+    font-size: 20px;
+    color: white;
+}
+
+#clist {
+    margin: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 20px;
+}
+
+#gtotal {
+    display: flex;
+    justify-content: center;
+}
+
+#gtotal i {
+    padding-left: 15px;
+    color: var(--blue2);
+    letter-spacing: 5px;
+}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECommerse</title>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+  <div id="header"></div>
+
+  <div class="heading">
+    <h2>Product List</h2>
+    <div class="zz"></div>    
+  </div>
+  <div id="list"></div>
+  <script>
+
+    var products = localStorage.getItem('products') ? JSON.parse( localStorage.getItem('products')) : [];
+    
+    if(products.length > 0)
+      {
+     let items = products.map((item,index) => {
+      var quantityData = JSON.parse(localStorage.getItem(item.id));
+      if(quantityData?.inventory > 0){
+          return `<div class="top">
+        <div class="box" > 
+            <img src = ${item.img}>
+            <div class="info">
+                <h4 class= "pname">${item.pname}                 <p class = "price"><i class="fa-solid fa-indian-rupee-sign"></i> ${item.price}</p>
+                </h4>
+                <p class = "disc"> <span>discription: </span> ${item.disc}</p>
+                <p class = "quantity"> <span>Quantity:</span> ${quantityData.inventory}</p>
+            </div>    
+        </div>
+        <div class="buttons">
+            <button class="addCart" data-id=${item.id}>AddToCart</button>
+            <button class="remove" data-id=${item.id}  >Remove</button>
+        </div>
+    </div>`
+  } 
+     });
+     items = items.join("");
+
+    $(document).ready(
+      function(){
+          $("#list").html(items);
+      })
+    }else{
+      $(document).ready(
+      function(){
+          $("#list").html("<h1> please Add Products</h1>");
+      })
+    } 
+// Deleting Product 
+    $(document).ready(function(){
+          $(".remove").click(function(e){
+            let x= $(this).attr("data-id")
+            var quantity = JSON.parse(localStorage.getItem(x))
+            var products = localStorage.getItem('products') ? JSON.parse( localStorage.getItem('products')) : [];
+             products = products.filter(function (item){
+               if(item.id != x){
+                return item;
+               }
+             } )
+             quantity.inventory = 0;
+             localStorage.setItem(x,JSON.stringify(quantity));
+             localStorage.setItem("products",JSON.stringify(products));
+             location.reload();
+          });
+      })
+           $(function(){ $("#header").load("header.html") });
+
+// Add To Cart
+
+     $(document).ready(function(){
+      $(".addCart").click(function(){
+        var products = localStorage.getItem('products') ? JSON.parse( localStorage.getItem('products')) : [];
+        var cartdata = localStorage.getItem('cartdata') ? JSON.parse( localStorage.getItem('cartdata')) : [];
+     
+        let z = $(this).attr("data-id")
+        var quantity = JSON.parse(localStorage.getItem(z))
+        var cartItem = new Object();
+          products.filter(function(item){
+            if(item.id == z){
+              cartItem.id = item.id;
+              cartItem.pname = item.pname;
+              cartItem.img = item.img;
+              cartItem.price = item.price;
+              cartItem.quantity = 0;
+            }
+          })
+          
+        if(quantity.cart > 0){
+          alert("Item already present in Cart")
+        }else{
+          quantity.cart = 1;
+          quantity.inventory = quantity.inventory - 1;
+          cartdata.push(cartItem);
+          localStorage.setItem("cartdata",JSON.stringify( cartdata));
+          localStorage.setItem(z,JSON.stringify(quantity));
+          location.reload();
+        }
+      })
+     })
+      </script>
+      
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+</head>
+<body>
+    <div id="header" ></div>
+    <div class="heading">
+        <h2>Cart items</h2>
+        <div class="zz"></div>
+      </div>
+    <div id="clist"> </div>
+    <div id="yy"></div>
+
+    <div id="gtotal"></div>
+    <script>
+     var cartdata = localStorage.getItem('cartdata') ? JSON.parse( localStorage.getItem('cartdata')) : [];
+      console.log(cartdata.length)
+     if(cartdata.length > 0){
+        var gtotal = 0;
+        cartdata.forEach(function(item) {
+
+            var quantityData = JSON.parse(localStorage.getItem(item.id));
+            if(quantityData.cart > 0){
+                gtotal= gtotal+ JSON.parse( `${quantityData.cart * item.price}`);
+             $("#clist").append(`<div class="top">
+           <div class="box" > 
+            <img src = ${item.img}>
+            <div class="info">
+                <h4 class= "pname">${item.pname}</h4>
+                <p class = "price"> <span>Price:&nbsp</span> <i class="fa-solid fa-indian-rupee-sign"></i> ${item.price}</p>
+                <p class = "quantity"> <span>Quantity:&nbsp &nbsp</span> <button  data-id=${item.id} class="plus">+</button>  ${quantityData.cart}  <button class="minus" data-id= ${item.id} >-</button></p>
+                <p class = "tprice"> <span>Total price:&nbsp  </span> <i class="fa-solid fa-indian-rupee-sign"></i> ${quantityData.cart * item.price}</p>
+                </div>    
+        </div>
+        <div class="buttons">
+            <button class="remove2" data-id=${item.id}  >Remove</button>
+        </div>
+    </div> `)}
+        });
+    }else{
+        $("#yy").html("<h1>Cart is Empty Add Some item    </h1>" )
+        $(document).ready(function(){
+            $("#gtotal").hide();
+        })
+        }
+    
+    $(document).ready(function(){
+      $(".plus").click(function(){
+        let a = $(this).attr("data-id")
+
+        var quantityData = JSON.parse(localStorage.getItem(a));
+        console.log("a",quantityData);
+        if(quantityData.inventory >0){
+            quantityData.cart =  quantityData.cart+1;
+            quantityData.inventory =  quantityData.inventory - 1;
+            localStorage.setItem(a,JSON.stringify(quantityData));
+            location.reload();
+        }else{
+            $(this).hide();
+        }
+      })
+    })
+
+    $(document).ready(function () {
+            $(".minus").click(function () {
+                let b = $(this).attr("data-id")
+                var quantityData = JSON.parse(localStorage.getItem(b));
+                
+                if ( quantityData.cart > 1) {
+                    quantityData.cart =  quantityData.cart-1;
+                    quantityData.inventory =  quantityData.inventory + 1;
+                    localStorage.setItem(b,JSON.stringify(quantityData));
+                    location.reload();
+                } else {
+                    $(this).hide();
+
+                }
+            })
+    })
+
+    $(document).ready(function () {
+            $(".remove2").click(function () {
+                let c = $(this).attr("data-id")
+                
+                 cartdata = cartdata.filter(function(item){
+                    if(item.id != c ){
+                         return item;
+                    }
+                })
+                var quantityData = JSON.parse(localStorage.getItem(c));
+                quantityData.cart = 0;
+                console.log(quantityData);
+                localStorage.setItem(c,JSON.stringify( quantityData));
+                 localStorage.setItem("cartdata",JSON.stringify( cartdata));
+                 location.reload();
+            })
+        })
+        $(document).ready(function () {
+            $('#gtotal').html(`<h1> Grand Total :<i class="fa-solid fa-indian-rupee-sign">${gtotal}</i> </h1>`)
+        })
+        $(function(){ $("#header").load("header.html") });
+    </script>
+</body>
+</html>
